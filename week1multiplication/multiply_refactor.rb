@@ -10,6 +10,8 @@ def split_in_two(num, split, size)
 end
 
 def karatsuba(num1,num2)
+  #karatsuba multiplication uses a divide and conquer strategy to perform multiplication
+  
   return num1 * num2 if num1.to_s.length <= 1 || num2.to_s.length <= 1 #base case
 
   size = [num1.to_s.length,num2.to_s.length].max

@@ -1,4 +1,5 @@
 def quicksort(arr)
+  #quicksort is another algorithm that uses divide and conquer. It randomly partitions the array and then sorts in place.
   if arr.length < 2
     return arr
   else

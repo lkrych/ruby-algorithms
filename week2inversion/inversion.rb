@@ -1,6 +1,6 @@
 
 def inversions(arr)
-
+  #This algorithm uses divide and conquer to calculate inversions
   #takes in an array of integers and calculates how many inversions of order there are
   if arr.length < 2
     return arr, 0
