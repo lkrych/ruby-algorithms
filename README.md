@@ -12,3 +12,4 @@ Each algorithm can be found in a unique file. There are also automated tests in 
 4. week3- Quicksort implementation (including with very large input)
 5. week4- Linear time implementation of selecting an nth-order statistic from an array, and Karger's minimum cut algorithm
 6. week5- Strongly-connected components algorithm
+7. week6- Dijkstra's shortest path algorithm
