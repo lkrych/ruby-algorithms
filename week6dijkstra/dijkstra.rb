@@ -9,12 +9,12 @@ def shortest_path(graph,start_vertex,finish_vertex)
     distance_hash = initialize_distance_hash(graph, graph.keys, start_vertex) #The distance hash represents how long it takes to get to the node in question from the start_vertex
     while visited.length != graph.keys.length
         node = find_nearest_node(distance_hash,visited)
-        if node.nil?
+        if node.nil? #algorithm will break if closest node is empty
             break
         end
         node_length = distance_hash[node]
         neighbors = graph[node]
-        neighbors.keys.each do |neighbor|
+        neighbors.keys.each do |neighbor| #update distance from start graph if closer option can be found
             new_length = node_length + neighbors[neighbor].to_f
             if distance_hash[neighbor] > new_length
                 distance_hash[neighbor] = new_length
