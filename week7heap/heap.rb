@@ -9,10 +9,14 @@ class Max_Heap
     
     attr_accessor :heap_size, :array_rep
     
-    def <<(element)
-        @array_rep << element
+    def update()
         @heap_size = @array_rep.length
         @array_rep = heapify
+    end
+    
+    def <<(element)
+        @array_rep << element
+        self.update()
     end
     
     def left_child(index)
@@ -86,8 +90,14 @@ class Max_Heap
     
     def get_and_remove_max
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
-        @heap_size -= 1
-        bubble_down(0)
+        min = @array_rep.pop()
+        self.update()
+        return min
+    end
+    
+    def key_update(index, key)
+        @array_rep[index] = key
+        self.update()
     end
 end
 
@@ -100,12 +110,16 @@ class Min_Heap
         @array_rep = heapify
     end
     
+    def update()
+        @heap_size = @array_rep.length
+        @array_rep = heapify
+    end
+    
     attr_accessor :heap_size, :array_rep
     
     def <<(element)
         @array_rep << element
-        @heap_size = @array_rep.length
-        @array_rep = heapify
+        self.update()
     end
     
     def left_child(index)
@@ -133,7 +147,7 @@ class Min_Heap
     end
     
     def satisfy_heap_property?(index)
-        #max_heap property states that the parent node is greater than the child node
+        #max_heap property states that the parent node is less than the child node
         if left_child_key(index).nil? 
             return true if @array_rep[index] <= right_child_key(index)
         elsif right_child_key(index).nil?
@@ -177,7 +191,13 @@ class Min_Heap
     
     def get_and_remove_min
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
-        @heap_size -= 1
-        bubble_down(0)
+        min = @array_rep.pop()
+        self.update()
+        return min
+    end
+    
+    def key_update(index, key)
+        @array_rep[index] = key
+        self.update()
     end
 end
