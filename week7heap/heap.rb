@@ -11,7 +11,8 @@ class Max_Heap
     
     def <<(element)
         @array_rep << element
-        heapify
+        @heap_size = @array_rep.length
+        @array_rep = heapify
     end
     
     def left_child(index)
@@ -75,6 +76,7 @@ class Max_Heap
                 bubble_down(index)
             end
         end
+        return @array_rep
     end
     
     def get_max
@@ -102,7 +104,8 @@ class Min_Heap
     
     def <<(element)
         @array_rep << element
-        heapify
+        @heap_size = @array_rep.length
+        @array_rep = heapify
     end
     
     def left_child(index)
@@ -164,6 +167,7 @@ class Min_Heap
                 bubble_down(index)
             end
         end
+        return @array_rep
     end
     
     def get_min
