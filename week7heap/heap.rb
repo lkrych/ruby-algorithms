@@ -133,13 +133,13 @@ class Min_Heap
     end
     
     def left_child_key(index)
-        return nil if left_child(index).nil?
-        @array_rep[left_child(index)]
+        return nil if @array_rep[left_child(index)].nil?
+        @array_rep[left_child(index)][:value]
     end
     
     def right_child_key(index)
-        return nil if right_child(index).nil?
-        @array_rep[right_child(index)]
+        return nil if @array_rep[right_child(index)].nil?
+        @array_rep[right_child(index)][:value]
     end
     
     def leaf_node?(index)
@@ -150,11 +150,11 @@ class Min_Heap
     def satisfy_heap_property?(index)
         #max_heap property states that the parent node is less than the child node
         if left_child_key(index).nil? 
-            return true if @array_rep[index][:value] <= right_child_key(index)[:value]
+            return true if @array_rep[index][:value] <= right_child_key(index)
         elsif right_child_key(index).nil?
-            return true if @array_rep[index][:value] <= left_child_key(index)[:value]
+            return true if @array_rep[index][:value] <= left_child_key(index)
         end
-        @array_rep[index][:value] <= left_child_key(index)[:value] and @array_rep[index][:value] <= right_child_key(index)[:value]
+        @array_rep[index][:value] <= left_child_key(index) and @array_rep[index][:value] <= right_child_key(index)
     end
     
     def bubble_down(index)
@@ -168,7 +168,7 @@ class Min_Heap
         elsif left_child_key.nil?
             smaller_child = right_child_key(index)
         else
-            smaller_child = if left_child_key[:value] < right_child_key[:value] then left_child(index) else right_child(index) end
+            smaller_child = if left_child_key(index) < right_child_key(index) then left_child(index) else right_child(index) end
         end
         
         @array_rep[index], @array_rep[smaller_child] = @array_rep[smaller_child], @array_rep[index]
