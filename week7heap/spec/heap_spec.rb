@@ -38,7 +38,7 @@ describe "The Max heap structures should pass the following tests" do
     it 'can use the get_and_remove method' do
         max_val = max.get_and_remove_max
         expect(max.heap_size).to eq(11)
-        expect(max_val).to eq(201)
+        expect(max_val[:value]).to eq(201)
     end
     
     it 'resorted the heap after the removal' do
@@ -72,7 +72,7 @@ describe "The Min heap structures should pass the following tests" do
     it 'can use the get_and_remove method' do
         min_val = min.get_and_remove_min
         expect(min.heap_size).to eq(6)
-        expect(min_val).to eq(1)
+        expect(min_val[:value]).to eq(1)
     end
     
     it 'resorted the heap after the removal' do

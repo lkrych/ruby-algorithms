@@ -93,7 +93,7 @@ class Max_Heap
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
         min = @array_rep.pop()
         self.update()
-        return min[:value]
+        return min
     end
     
     def key_update(index, key)
@@ -194,7 +194,7 @@ class Min_Heap
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
         min = @array_rep.pop()
         self.update()
-        return min[:value]
+        return min
     end
     
     def key_update(index, key)

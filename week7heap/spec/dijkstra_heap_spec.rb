@@ -2,9 +2,9 @@ require_relative 'spec_helper.rb'
 require_relative '../dijkstra_heap.rb'
 require_relative '../graph_load.rb'
 
-graph1 = graph_load('./small_test_graph.txt')
-graph2 = graph_load('./small_test_graph_2.txt')
-graph3 = graph_load('./small_test_graph_3.txt')
+graph1 = graph_load('spec/small_test_graph.txt')
+graph2 = graph_load('spec/small_test_graph_2.txt')
+graph3 = graph_load('spec/small_test_graph_3.txt')
 
 describe "test shortest_path functionality" do
     

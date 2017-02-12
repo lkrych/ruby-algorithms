@@ -1,27 +1,24 @@
 require_relative './heap.rb'
 
-#optimized version of dijkstra's algorithm with a heap data structure.
+#initalize struct
+Struct.new("Node", :name, :value)
+#optimized version of dijkstra's algorithm with a heap data structure
 
 def shortest_path(graph,start_vertex,finish_vertex)
-    #O(vertex * edge) implementation of djikstra's algorithm, can be improved with heap data structure
+    #O(vertex * edge) implementation of djikstra's algorithm
     #graph is a nested hash of nodes, with their edges represented by a hash of the vertices they are connected to and their length
     #finds shortest path between start_vertex and finish_vertex
-    visited = [start_vertex]
     distance_hash = initialize_distance_hash(graph, graph.keys, start_vertex) #The distance hash represents how long it takes to get to the node in question from the start_vertex
-    while visited.length != graph.keys.length
-        node = find_nearest_node(distance_hash,visited)
-        if node.nil? #algorithm will break if closest node is empty
-            break
-        end
-        node_length = distance_hash[node]
-        neighbors = graph[node]
-        neighbors.keys.each do |neighbor| #update distance from start graph if closer option can be found
-            new_length = node_length + neighbors[neighbor].to_f
-            if distance_hash[neighbor] > new_length
-                distance_hash[neighbor] = new_length
-            end
-        end
-        visited << node
+    distance_heap = initialize_heap(distance_hash)
+    while !distance_heap.array_rep.empty?
+        node = distance_heap.get_and_remove_min
+        node_length = distance_hash[node.name]
+        neighbors = graph[node.name] #returns dictionary of neighbors and their distance from node
+        discover_heap(distance_heap, neighbors) #updates heap with distance information of closest nodes
+        next_node = distance_heap.get_and_remove_min #update distance from start graph if closer option can be found
+        new_length = node_length + distance_hash[next_node.name]
+        update_heap(distance_heap, graph[next_node.name], distance_hash[next_node.value]) 
+        distance_hash[next_node.name] = new_length
     end
     return distance_hash[finish_vertex]
 end
@@ -56,3 +53,27 @@ def find_nearest_node(distance_hash, visited)
     return closest_vertex
 end
 
+def initialize_heap(distance_hash)
+    arr = []
+    distance_hash.each do |key,value|
+        arr << Struct::Node.new(key,value)
+    end
+    heap = Min_Heap.new(arr)
+    return heap
+end
+
+def discover_heap(distance_heap,neighbors)
+    neighbors.each do |key,value|
+        index = distance_heap.array_rep.find_index {|str| str.name == key}
+        new_struct = Struct::Node.new(key, value.to_f )
+        distance_heap.key_update(index,new_struct)
+    end
+end
+
+def update_heap(distance_heap, node_neighbors, node_length)
+    node_neighbors.each do |key, value|
+        index = distance_heap.array_rep.find_index {|str| str.name == key}
+        new_struct = Struct::Node.new(key, value.to_f - node_length.to_f)
+        distance_heap.key_update(index,new_struct)
+    end
+end
