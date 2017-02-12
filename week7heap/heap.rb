@@ -1,3 +1,4 @@
+require 'pry'
 class Max_Heap
     #modeled off of discussion on https://www.sitepoint.com/heap-data-structure-ruby/
     
@@ -32,12 +33,12 @@ class Max_Heap
     
     def left_child_key(index)
         return nil if @array_rep[left_child(index)].nil?
-        @array_rep[left_child(index)]
+        @array_rep[left_child(index)][:value]
     end
     
     def right_child_key(index)
         return nil if @array_rep[right_child(index)].nil?
-        @array_rep[right_child(index)]
+        @array_rep[right_child(index)][:value]
     end
     
     def leaf_node?(index)
@@ -48,11 +49,11 @@ class Max_Heap
     def satisfy_heap_property?(index)
         #max_heap property states that the parent node is greater than the child node
         if left_child_key(index).nil? 
-            return true if @array_rep[index] >= right_child_key(index)
+            return true if @array_rep[index][:value] >= right_child_key(index)
         elsif right_child_key(index).nil?
-            return true if @array_rep[index] >= left_child_key(index)
+            return true if @array_rep[index][:value] >= left_child_key(index)
         end
-        @array_rep[index] >= left_child_key(index) and @array_rep[index] >= right_child_key(index)
+        @array_rep[index][:value] >= left_child_key(index) and @array_rep[index][:value] >= right_child_key(index)
     end
     
     def bubble_down(index)
@@ -85,14 +86,14 @@ class Max_Heap
     
     def get_max
         #the reason d'etre of heaps!
-        @array_rep[0]
+        @array_rep[0][:value]
     end
     
     def get_and_remove_max
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
         min = @array_rep.pop()
         self.update()
-        return min
+        return min[:value]
     end
     
     def key_update(index, key)
@@ -149,11 +150,11 @@ class Min_Heap
     def satisfy_heap_property?(index)
         #max_heap property states that the parent node is less than the child node
         if left_child_key(index).nil? 
-            return true if @array_rep[index] <= right_child_key(index)
+            return true if @array_rep[index][:value] <= right_child_key(index)[:value]
         elsif right_child_key(index).nil?
-            return true if @array_rep[index] <= left_child_key(index)
+            return true if @array_rep[index][:value] <= left_child_key(index)[:value]
         end
-        @array_rep[index] <= left_child_key(index) and @array_rep[index] <= right_child_key(index)
+        @array_rep[index][:value] <= left_child_key(index)[:value] and @array_rep[index][:value] <= right_child_key(index)[:value]
     end
     
     def bubble_down(index)
@@ -167,7 +168,7 @@ class Min_Heap
         elsif left_child_key.nil?
             smaller_child = right_child_key(index)
         else
-            smaller_child = if left_child_key < right_child_key then left_child(index) else right_child(index) end
+            smaller_child = if left_child_key[:value] < right_child_key[:value] then left_child(index) else right_child(index) end
         end
         
         @array_rep[index], @array_rep[smaller_child] = @array_rep[smaller_child], @array_rep[index]
@@ -186,14 +187,14 @@ class Min_Heap
     
     def get_min
         #the reason d'etre of heaps!
-        @array_rep[0]
+        @array_rep[0][:value]
     end
     
     def get_and_remove_min
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
         min = @array_rep.pop()
         self.update()
-        return min
+        return min[:value]
     end
     
     def key_update(index, key)

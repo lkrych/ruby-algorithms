@@ -1,6 +1,6 @@
 require_relative './heap.rb'
 
-#optimized version of dijkstra's algorithm with a heap data structure
+#optimized version of dijkstra's algorithm with a heap data structure.
 
 def shortest_path(graph,start_vertex,finish_vertex)
     #O(vertex * edge) implementation of djikstra's algorithm, can be improved with heap data structure
