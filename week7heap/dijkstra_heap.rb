@@ -1,4 +1,5 @@
 require_relative './heap.rb'
+require 'byebug'
 
 #initalize struct
 Struct.new("Node", :name, :value)
@@ -12,13 +13,18 @@ def shortest_path(graph,start_vertex,finish_vertex)
     distance_heap = initialize_heap(distance_hash)
     while !distance_heap.array_rep.empty?
         node = distance_heap.get_and_remove_min
-        node_length = distance_hash[node.name]
+        if node.value == Float::INFINITY 
+            break
+        end
+        node_length = node.value
         neighbors = graph[node.name] #returns dictionary of neighbors and their distance from node
         discover_heap(distance_heap, neighbors) #updates heap with distance information of closest nodes
         next_node = distance_heap.get_and_remove_min #update distance from start graph if closer option can be found
-        new_length = node_length + distance_hash[next_node.name]
-        update_heap(distance_heap, graph[next_node.name], distance_hash[next_node.value]) 
-        distance_hash[next_node.name] = new_length
+        new_length = node_length + next_node.value
+        update_heap(next_node.name, distance_heap, graph[node.name], distance_hash[next_node.name])
+        if distance_hash[next_node.name] > new_length
+            distance_hash[next_node.name] = new_length
+        end
     end
     return distance_hash[finish_vertex]
 end
@@ -70,10 +76,14 @@ def discover_heap(distance_heap,neighbors)
     end
 end
 
-def update_heap(distance_heap, node_neighbors, node_length)
+def update_heap(next_node, distance_heap, node_neighbors, edge_length)
+    #modify the values of the nodes that are pointed to by the chosen node
     node_neighbors.each do |key, value|
+        if key == next_node
+            next
+        end
         index = distance_heap.array_rep.find_index {|str| str.name == key}
-        new_struct = Struct::Node.new(key, value.to_f - node_length.to_f)
+        new_struct = Struct::Node.new(key, value.to_f - edge_length)
         distance_heap.key_update(index,new_struct)
     end
 end
