@@ -85,10 +85,10 @@ describe "The Min heap structures should pass the following tests" do
     end
     
     it 'can handle multiple get_and_remove_min' do
-        min1 = min.get_and_remove_min[:value]
-        min2 = min.get_and_remove_min[:value]
-        min3 = min.get_and_remove_min[:value]
-        min4 = min.get_and_remove_min[:value]
+        min1 = (min.get_and_remove_min)[:value]
+        min2 = (min.get_and_remove_min)[:value]
+        min3 = (min.get_and_remove_min)[:value]
+        min4 = (min.get_and_remove_min)[:value]
         expect(min1).to eq(4)
         expect(min2).to eq(4)
         expect(min3).to eq(30)

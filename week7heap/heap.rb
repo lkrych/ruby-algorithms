@@ -114,12 +114,13 @@ class Min_Heap
     def update()
         @heap_size = @array_rep.length
         @array_rep = heapify
+        
     end
     
     attr_accessor :heap_size, :array_rep
     
     def <<(element)
-        @array_rep << element
+        @array_rep.unshift(element)
         self.update()
     end
     
@@ -158,15 +159,16 @@ class Min_Heap
     end
     
     def bubble_down(index)
+        
         return if leaf_node?(index) || satisfy_heap_property?(index)
         
         left_child_key = left_child_key(index)
         right_child_key = right_child_key(index)
         
         if right_child_key.nil? 
-            smaller_child = left_child_key(index) 
+            smaller_child = left_child(index) 
         elsif left_child_key.nil?
-            smaller_child = right_child_key(index)
+            smaller_child = right_child(index)
         else
             smaller_child = if left_child_key(index) < right_child_key(index) then left_child(index) else right_child(index) end
         end
@@ -177,7 +179,7 @@ class Min_Heap
     end
     
     def heapify
-        (0..@heap_size).to_a.reverse.each do |index|
+        (0..@heap_size-1).to_a.reverse.each do |index|
             unless leaf_node?(index)
                 bubble_down(index)
             end
@@ -191,7 +193,6 @@ class Min_Heap
     end
     
     def get_and_remove_min
-        
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
         min = @array_rep.pop()
         self.update()
@@ -200,7 +201,7 @@ class Min_Heap
     end
     
     def key_update(index, key)
-        @array_rep[index] = key
-        self.update()
+        @array_rep.delete_at(index)
+        @array_rep << key
     end
 end

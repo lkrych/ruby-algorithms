@@ -14,13 +14,14 @@ def shortest_path(graph,start_vertex,finish_vertex)
     visited = [start_vertex]
     while visited.length != graph.keys.length
         node = distance_heap.get_and_remove_min 
+        
         if node.value == Float::INFINITY  
             break
         end
         node_length = node.value
         neighbors = graph[node.name] #returns dictionary of neighbors and their distance from node
         discover_heap(distance_heap, neighbors) #updates heap with distance information of closest nodes
-        byebug
+        
         neighbors.keys.each do |neighbor| #update distance from start graph if closer option can be found
             new_length = node_length + neighbors[neighbor].to_f
             if distance_hash[neighbor] > new_length
@@ -58,10 +59,18 @@ end
 
 def discover_heap(distance_heap,neighbors)
     neighbors.each do |key,value|
+        puts neighbors
+        puts distance_heap.array_rep
+        puts "the heap size is #{distance_heap.heap_size}"
+        puts key, value
+        puts " "
         index = distance_heap.array_rep.find_index {|str| str.name == key}
+        puts "the index is #{index}"
         new_struct = Struct::Node.new(key, value.to_f )
+        puts "the new struct is #{new_struct}"
         distance_heap.key_update(index,new_struct)
     end
+    puts "the resultant distance_heap is #{distance_heap.array_rep}"
 end
 
 # def update_heap(next_node, distance_heap, node_neighbors, edge_length)
