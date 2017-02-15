@@ -5,6 +5,7 @@ require_relative '../graph_load.rb'
 graph1 = graph_load('spec/small_test_graph.txt')
 graph2 = graph_load('spec/small_test_graph_2.txt')
 graph3 = graph_load('spec/small_test_graph_3.txt')
+graph4 = graph_load('spec/test_graph.txt')
 
 describe "test shortest_path functionality" do
     
@@ -39,6 +40,10 @@ describe "test shortest_path functionality" do
     
     it 'performs shortest_path correctly' do
     expect(shortest_path(graph3,'1','6')).to eq(8)
+    end
+    
+    it 'handles larger input correctly' do
+    expect(shortest_path(graph4,'1','50')).to eq(3152)
     end
     
   

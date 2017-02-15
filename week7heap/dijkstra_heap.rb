@@ -5,7 +5,7 @@ require 'byebug'
 Struct.new("Node", :name, :value)
 #optimized version of dijkstra's algorithm with a heap data structure
 
-def shortest_path(graph,start_vertex,finish_vertex)
+def shortest_path_opt(graph,start_vertex,finish_vertex)
     #O(vertex * edge) implementation of djikstra's algorithm
     #graph is a nested hash of nodes, with their edges represented by a hash of the vertices they are connected to and their length
     #finds shortest path between start_vertex and finish_vertex
@@ -17,19 +17,20 @@ def shortest_path(graph,start_vertex,finish_vertex)
         if node.value == Float::INFINITY  
             break
         end
-        node_length = node.value
+        node_length = distance_hash[node.name]
         neighbors = graph[node.name] #returns dictionary of neighbors and their distance from node
         discover_heap(distance_heap, neighbors, visited) #updates heap with distance information of closest nodes
 
-        puts distance_hash
-        puts "#{distance_heap.array_rep}"
-        neighbor = distance_heap.get_min
-        puts "the current node is #{node}"
-        new_length = node_length + neighbor.value
-        puts "the neighbor is #{neighbor.name} and the new length is #{new_length}"
-        
-        if distance_hash[neighbor.name] > new_length
-            distance_hash[neighbor.name] = new_length
+        distance_heap.array_rep.each do |neighbor|
+            if neighbor.value == Float::INFINITY 
+                break
+            end
+           
+            new_length = node_length + neighbor.value
+            
+            if distance_hash[neighbor.name] > new_length
+                distance_hash[neighbor.name] = new_length
+            end
         end
         
         visited << node
