@@ -14,20 +14,24 @@ def shortest_path(graph,start_vertex,finish_vertex)
     visited = [start_vertex]
     while visited.length != graph.keys.length
         node = distance_heap.get_and_remove_min 
-        
         if node.value == Float::INFINITY  
             break
         end
         node_length = node.value
         neighbors = graph[node.name] #returns dictionary of neighbors and their distance from node
-        discover_heap(distance_heap, neighbors) #updates heap with distance information of closest nodes
+        discover_heap(distance_heap, neighbors, visited) #updates heap with distance information of closest nodes
+
+        puts distance_hash
+        puts "#{distance_heap.array_rep}"
+        neighbor = distance_heap.get_min
+        puts "the current node is #{node}"
+        new_length = node_length + neighbor.value
+        puts "the neighbor is #{neighbor.name} and the new length is #{new_length}"
         
-        neighbors.keys.each do |neighbor| #update distance from start graph if closer option can be found
-            new_length = node_length + neighbors[neighbor].to_f
-            if distance_hash[neighbor] > new_length
-                distance_hash[neighbor] = new_length
-            end
+        if distance_hash[neighbor.name] > new_length
+            distance_hash[neighbor.name] = new_length
         end
+        
         visited << node
     end
     return distance_hash[finish_vertex]
@@ -57,20 +61,21 @@ def initialize_heap(distance_hash)
     return heap
 end
 
-def discover_heap(distance_heap,neighbors)
+def discover_heap(distance_heap,neighbors,visited)
     neighbors.each do |key,value|
-        puts neighbors
-        puts distance_heap.array_rep
-        puts "the heap size is #{distance_heap.heap_size}"
-        puts key, value
-        puts " "
+        if visited.include?(key) #don't update the heap with keys that aren't in the heap!
+            next
+        end
         index = distance_heap.array_rep.find_index {|str| str.name == key}
-        puts "the index is #{index}"
+        
+        if distance_heap.array_rep[index].value <= value.to_f #don't update the distance_heap if you don't need to
+            next
+        end
         new_struct = Struct::Node.new(key, value.to_f )
-        puts "the new struct is #{new_struct}"
         distance_heap.key_update(index,new_struct)
     end
-    puts "the resultant distance_heap is #{distance_heap.array_rep}"
+    distance_heap.update()
+    
 end
 
 # def update_heap(next_node, distance_heap, node_neighbors, edge_length)

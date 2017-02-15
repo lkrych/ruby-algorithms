@@ -20,7 +20,7 @@ min = Min_Heap.new(create_struct_arr(["A","B","C","D","E"],[505,2,4,303,4]))
 describe "The Max heap structures should pass the following tests" do
     
     it 'performs get_max properly' do
-        expect(max.get_max).to eq(200)
+        expect(max.get_max.value).to eq(200)
     end
     
     it 'handles the addition of new elements' do
@@ -32,7 +32,7 @@ describe "The Max heap structures should pass the following tests" do
     it 'handles the addition of new elements by heapifying' do
         expect(max.heap_size).to eq(11)
         max << Struct::Node.new("K", 201)
-        expect(max.get_max).to eq(201)
+        expect(max.get_max.value).to eq(201)
     end
     
     it 'can use the get_and_remove method' do
@@ -42,19 +42,19 @@ describe "The Max heap structures should pass the following tests" do
     end
     
     it 'resorted the heap after the removal' do
-        expect(max.get_max).to eq(200)
+        expect(max.get_max.value).to eq(200)
     end
     
     it 'can use the key_update method' do
         max.key_update(0,Struct::Node.new("M", 1))
-        expect(max.get_max).to eq(100)
+        expect(max.get_max.value).to eq(100)
     end
 end
 
 describe "The Min heap structures should pass the following tests" do
     
     it 'performs get_min properly' do
-        expect(min.get_min).to eq(2)
+        expect(min.get_min.value).to eq(2)
     end
     
     it 'handles the addition of new elements' do
@@ -66,7 +66,7 @@ describe "The Min heap structures should pass the following tests" do
     it 'handles the addition of new elements by heapifying' do
         expect(min.heap_size).to eq(6)
         min <<  Struct::Node.new("G", 1)
-        expect(min.get_min).to eq(1)
+        expect(min.get_min.value).to eq(1)
     end
     
     it 'can use the get_and_remove method' do
@@ -76,12 +76,12 @@ describe "The Min heap structures should pass the following tests" do
     end
     
     it 'resorted the heap after the removal' do
-        expect(min.get_min).to eq(2)
+        expect(min.get_min.value).to eq(2)
     end
     
     it 'can use the key_update method' do
         min.key_update(0,Struct::Node.new("H", 30))
-        expect(min.get_min).to eq(4)
+        expect(min.get_min.value).to eq(4)
     end
     
     it 'can handle multiple get_and_remove_min' do

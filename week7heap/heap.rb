@@ -16,7 +16,7 @@ class Max_Heap
     end
     
     def <<(element)
-        @array_rep << element
+        @array_rep.unshift(element)
         self.update()
     end
     
@@ -86,7 +86,7 @@ class Max_Heap
     
     def get_max
         #the reason d'etre of heaps!
-        @array_rep[0][:value]
+        @array_rep[0]
     end
     
     def get_and_remove_max
@@ -179,7 +179,7 @@ class Min_Heap
     end
     
     def heapify
-        (0..@heap_size-1).to_a.reverse.each do |index|
+        (0...@heap_size).to_a.reverse.each do |index|
             unless leaf_node?(index)
                 bubble_down(index)
             end
@@ -189,7 +189,7 @@ class Min_Heap
     
     def get_min
         #the reason d'etre of heaps!
-        @array_rep[0][:value]
+        @array_rep[0]
     end
     
     def get_and_remove_min
