@@ -191,10 +191,12 @@ class Min_Heap
     end
     
     def get_and_remove_min
+        
         @array_rep[@heap_size-1], @array_rep[0] = @array_rep[0], @array_rep[@heap_size-1]
         min = @array_rep.pop()
         self.update()
         return min
+        
     end
     
     def key_update(index, key)
