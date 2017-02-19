@@ -1,7 +1,7 @@
 require 'benchmark'
-require_relative '../week7heap/dijkstra_heap.rb'
-require_relative '../week7heap/graph_load.rb'
-require_relative '../week6dijkstra/dijkstra.rb'
+require_relative '../dijkstra_heap.rb'
+require_relative '../graph_load.rb'
+require_relative '../../week6dijkstra/dijkstra.rb'
 
 graph1 = graph_load('../week6dijkstra/spec/test_graph.txt')
 

@@ -13,4 +13,5 @@ Each algorithm can be found in a unique file. There are also automated tests in 
 5. week4- Linear time implementation of selecting an nth-order statistic from an array, and Karger's minimum cut algorithm
 6. week5- Strongly-connected components algorithm
 7. week6- Dijkstra's shortest path algorithm
-8. week7- Heaps, Binary-sorting trees and Heap-based Dijkstra
+8. week7- Heaps,and Heap-based Dijkstra shortest path algorithm
+9. week8- Three different implementations of the two-sum algorithm: naive, with a hash table, and with a bloom filter
