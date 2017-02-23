@@ -15,3 +15,4 @@ Each algorithm can be found in a unique file. There are also automated tests in 
 7. week6- Dijkstra's shortest path algorithm
 8. week7- Heaps,and Heap-based Dijkstra shortest path algorithm
 9. week8- Three different implementations of the two-sum algorithm: naive, with a hash table, and with a bloom filter
+10. week9- Prim's algorithm to compute minimum spanning tree, and scheduling algorithm that minimizes the weighted sum of completion times
